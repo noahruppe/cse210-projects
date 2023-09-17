@@ -12,7 +12,7 @@ class Program
 
 
             Random randomizer = new Random();
-            int number = randomizer.Next(1,100);
+            int number = randomizer.Next(1,101);
 
             Console.Write("What is your guess? ");
             string answer1 = Console.ReadLine();
