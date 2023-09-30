@@ -29,6 +29,24 @@ public class Randomizer
         string randomSentence = sentences[randomSentenceIndex];
 
         Console.WriteLine(randomSentence);
+
+    }
+    public string GetRandomPrompt()
+    {
+        
+        int RandomPromptIndex = _random.Next(_Prompt.Count);
+        Prompts randomPrompt = _Prompt[RandomPromptIndex];
+
+        string[] sentences = {
+            randomPrompt._interestingPerson,
+            randomPrompt._bestPartOfDay,
+            randomPrompt._lordsHand,
+            randomPrompt._emotionFelt,
+            randomPrompt._doOver
+        };
+
+        int randomSentenceIndex = _random.Next(sentences.Length);
+        return sentences[randomSentenceIndex];
     }
 }
 

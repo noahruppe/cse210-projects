@@ -15,7 +15,29 @@ class Program
         randomizer.AddPrompt(Prompt1);
 
         Console.WriteLine("Prompt:");
-        randomizer.DisplayRandomPrompt();
+        string randomPrompt = randomizer.GetRandomPrompt();
+        Console.WriteLine(randomPrompt);
+
+        Entry entry = new Entry();
+        string _userResponse = entry._userResponse();
+
+
+        SavedEntry savedEntry = new SavedEntry();
+
+        savedEntry.SetPrompt(randomPrompt);
+        savedEntry.SetResponse(_userResponse);
+        savedEntry.SeTDate(DateTime.Now);
+
+        SavedEntries savedEntries = new SavedEntries();
+        savedEntries.AddSavedEntry(savedEntry);
+
+        List<string>entriesToSave = savedEntries.GetEntries();
+
+        Console.WriteLine("Enter a file name to save your entries.");
+        string fileName = Console.ReadLine();
+
+        SaveToFile.SavedEntries(fileName , entriesToSave);
+
 
     }
 }
