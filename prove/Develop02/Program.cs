@@ -1,42 +1,126 @@
 using System;
+using System.Data.Common;
+using System.Runtime.InteropServices.Marshalling;
+using System.Collections.Generic;
+
+
 
 class Program
 {
     static void Main(string[] args)
     {
-        Prompts Prompt1 = new Prompts();
-        Prompt1._interestingPerson = "Who was the most interesting person I interacted with today?";
-        Prompt1._bestPartOfDay = "What was the best part of my day?";
-        Prompt1._lordsHand = "How did I see the hand of the Lord in my life today?";
-        Prompt1._emotionFelt = "What was the strongest emotion I felt today?";
-        Prompt1._doOver = "If I had one thing I could do over today, what would it be?";
+        Menu menu1 = new Menu();
+        menu1._write ="1";
+        menu1._display="2";
+        menu1._Load="3";
+        menu1._Save="4";
+        menu1._quite="5";
 
-        Randomizer randomizer = new Randomizer();
-        randomizer.AddPrompt(Prompt1);
-
-        Console.WriteLine("Prompt:");
-        string randomPrompt = randomizer.GetRandomPrompt();
-        Console.WriteLine(randomPrompt);
-
-        Entry entry = new Entry();
-        string _userResponse = entry._userResponse();
-
-
-        SavedEntry savedEntry = new SavedEntry();
-
-        savedEntry.SetPrompt(randomPrompt);
-        savedEntry.SetResponse(_userResponse);
-        savedEntry.SeTDate(DateTime.Now);
+        bool isRunning = true;
 
         SavedEntries savedEntries = new SavedEntries();
-        savedEntries.AddSavedEntry(savedEntry);
 
-        List<string>entriesToSave = savedEntries.GetEntries();
+        while (isRunning)
+        {
+            Console.WriteLine("Menu");
+            Console.WriteLine($"{menu1._write} Write: ");
+            Console.WriteLine($"{menu1._display} Display: ");
+            Console.WriteLine($"{menu1._Load} Load: ");
+            Console.WriteLine($"{menu1._Save} Save: ");
+            Console.WriteLine($"{menu1._quite} Quit: ");
 
-        Console.WriteLine("Enter a file name to save your entries.");
-        string fileName = Console.ReadLine();
+            string choice = Console.ReadLine();
 
-        SaveToFile.SavedEntries(fileName , entriesToSave);
+            if (choice == menu1._write)
+            {
+                HandleWriteOption(savedEntries);
+            }
+            else if  (choice == menu1._display)
+            {
+                HandleDisplayOption(savedEntries);
+            }
+            else if (choice == menu1._Load)
+            {
+                HandleLoadOption(savedEntries);
+            }
+            else if (choice == menu1._Save)
+            {
+                HandleSavedEntries(savedEntries);
+            }
+            else if (choice == menu1._quite)
+            {
+                isRunning = false;
+            }
+            static void HandleWriteOption(SavedEntries savedEntries)
+            {
+                Prompts Prompt1 = new Prompts();
+                Prompt1._interestingPerson = "Who was the most interesting person I interacted with today?";
+                Prompt1._bestPartOfDay = "What was the best part of my day?";
+                Prompt1._lordsHand = "How did I see the hand of the Lord in my life today?";
+                Prompt1._emotionFelt = "What was the strongest emotion I felt today?";
+                Prompt1._doOver = "If I had one thing I could do over today, what would it be?";
+
+                Randomizer randomizer = new Randomizer();
+                randomizer.AddPrompt(Prompt1);
+
+                Console.WriteLine("Prompt:");
+                string randomPrompt = randomizer.GetRandomPrompt();
+                Console.WriteLine(randomPrompt);
+
+                Entry entry = new Entry();
+                string _userResponse = entry._userResponse();
+
+
+                SavedEntry savedEntry = new SavedEntry();
+
+                savedEntry.SetPrompt(randomPrompt);
+                savedEntry.SetResponse(_userResponse);
+                savedEntry.SeTDate(DateTime.Now);
+
+                savedEntries.AddSavedEntry(savedEntry);
+
+            }
+            static void HandleDisplayOption(SavedEntries savedEntries)
+            {
+                List<string> entriesTODisplay = savedEntries.GetEntries();
+
+                Console.WriteLine("Entries for the day:");
+                if (entriesTODisplay.Count == 0 )
+                {
+                    Console.Write("You do not have any entries for the day.");
+                }
+                else
+                {
+                    foreach (string entryText in entriesTODisplay)
+                    {
+                        Console.WriteLine(entryText);
+                    }
+                }
+            }
+            static void HandleLoadOption(SavedEntries savedEntries)
+            {
+                Console.WriteLine("Enter a file name to load entries from: ");
+                string fileName = Console.ReadLine();
+
+                string [] lines = File.ReadAllLines(fileName);
+
+                foreach (string line in lines)
+                {
+                    savedEntries.AddEntry(line);
+                }
+            }
+            static void HandleSavedEntries(SavedEntries savedEntries)
+            {
+                Console.WriteLine("Enter a file name to save your entries:");
+                string fileName = Console.ReadLine();
+    
+                SaveToFile.SavedEntries(fileName, savedEntries.GetEntries());
+    
+                Console.WriteLine($"Entries saved to {fileName}.");
+            }
+
+
+        }
 
 
     }
