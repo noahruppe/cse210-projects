@@ -58,7 +58,9 @@ class Program
                 string customPromptChoice = Console.ReadLine();
 
                 string randomPrompt = "";
-
+                /*I added this to the code so that the user can have the option to write their own prompt for when they have things they want
+                to keep track of like general conference messages for example they could write prompt words of russel m nelson. and then
+                they can write their thoughts on his talk or things that inspired them this is my attempt to get the full 100% */
                 if (customPromptChoice.ToLower() == "yes")
                 {
                     Console.WriteLine("Enter you prompt: ");
