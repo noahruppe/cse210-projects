@@ -28,6 +28,7 @@ class Program
             Console.WriteLine($"{menu1._Load} Load: ");
             Console.WriteLine($"{menu1._Save} Save: ");
             Console.WriteLine($"{menu1._quite} Quit: ");
+            Console.Write("What would you like to do? ");
 
             string choice = Console.ReadLine();
 
@@ -53,19 +54,33 @@ class Program
             }
             static void HandleWriteOption(SavedEntries savedEntries)
             {
-                Prompts Prompt1 = new Prompts();
-                Prompt1._interestingPerson = "Who was the most interesting person I interacted with today?";
-                Prompt1._bestPartOfDay = "What was the best part of my day?";
-                Prompt1._lordsHand = "How did I see the hand of the Lord in my life today?";
-                Prompt1._emotionFelt = "What was the strongest emotion I felt today?";
-                Prompt1._doOver = "If I had one thing I could do over today, what would it be?";
+                Console.WriteLine("Would you like to create a custom prompt (Yes/No)");
+                string customPromptChoice = Console.ReadLine();
 
-                Randomizer randomizer = new Randomizer();
-                randomizer.AddPrompt(Prompt1);
+                string randomPrompt = "";
 
-                Console.WriteLine("Prompt:");
-                string randomPrompt = randomizer.GetRandomPrompt();
-                Console.WriteLine(randomPrompt);
+                if (customPromptChoice.ToLower() == "yes")
+                {
+                    Console.WriteLine("Enter you prompt: ");
+                    randomPrompt = Console.ReadLine();
+                }
+                else
+                {
+
+                    Prompts Prompt1 = new Prompts();
+                    Prompt1._interestingPerson = "Who was the most interesting person I interacted with today?";
+                    Prompt1._bestPartOfDay = "What was the best part of my day?";
+                    Prompt1._lordsHand = "How did I see the hand of the Lord in my life today?";
+                    Prompt1._emotionFelt = "What was the strongest emotion I felt today?";
+                    Prompt1._doOver = "If I had one thing I could do over today, what would it be?";
+
+                    Randomizer randomizer = new Randomizer();
+                    randomizer.AddPrompt(Prompt1);
+
+                    randomPrompt = randomizer.GetRandomPrompt();
+                }
+
+                Console.WriteLine($"Prompt: {randomPrompt} ");
 
                 Entry entry = new Entry();
                 string _userResponse = entry._userResponse();

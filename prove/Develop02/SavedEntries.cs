@@ -11,7 +11,7 @@ public class SavedEntries
     }
     public void AddSavedEntry(SavedEntry savedEntry)
     {
-        string savedEntryString = $"{savedEntry.GetPrompt()} - {savedEntry.GetDate()} - {savedEntry.GetResponse()}";
+        string savedEntryString = $"Prompt: {savedEntry.GetPrompt()}{Environment.NewLine}Date: {savedEntry.GetDate()}{Environment.NewLine}Rsponse: {savedEntry.GetResponse()}";
         _entries.Add(savedEntryString);
     }
     public List<string> GetEntries()
