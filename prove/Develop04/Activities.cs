@@ -1,75 +1,44 @@
 using System;
-using System.Collections.Generic;
-using System.Threading;
 
-public class Activities
+public class Activity
 {
-    private string _startmsg = "";
-    private string _endmsg = "";
-    private int _timer = 0;
+    protected string name;
+    protected string description;
+    protected int duration;
+    protected DateTime _startTime;
+    protected DateTime _endTime;
 
-    public Activities(string start, string end )
+    public Activity(string name, string description)
     {
-        _startmsg = start;
-        _endmsg = end;
+        this.name = name;
+        this.description = description;
     }
 
-    public string GetStart()
+    protected void DisplayWelcomeMessage()
     {
-        return _startmsg;
+        Console.WriteLine($"Welcome to {name} activity!\n\n {description}");
+        Console.Write("\nEnter the duration of the activity (in seconds): ");
+        if (int.TryParse(Console.ReadLine(), out int duration))
+        {
+            this.duration = duration;
+            Console.Write("Get ready...");
+            for (int index = 5; index > 0; index--)
+            {
+                Console.Write(index);
+                System.Threading.Thread.Sleep(1000);
+                Console.Write("\b \b");
+            }
+        }
     }
 
-    public void SetStart(string start)
+    protected void DisplayCompletionMessage()
     {
-        _startmsg = start;
-    }
-
-    public string GetEnd()
-    {
-        return _endmsg;
-    }
-
-    public void SetEnd(string end)
-    {
-        _endmsg = end;
-    }
-
-    public string GetStartDisplayMsg()
-    {
-        return GetStart();
-    }
-
-    public string GetEndDisplayMsg()
-    {
-        return GetEnd();
-    }
-
-    public int GetTimer()
-    {
-        return _timer;
-    }
-
-    public void SetTimer(int time)
-    {
-        _timer = time;
-    }
-
-    public void RunActivityWithTimer(int activityTime, Action activityAction)
-    {
-        Console.WriteLine("Get ready...");
+        Console.WriteLine($"You have completed {name} for {duration} seconds. Well done.");
         for (int index = 5; index > 0; index--)
         {
             Console.Write(index);
-            Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(1000);
             Console.Write("\b");
-        }
-
-        DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(activityTime);
-
-        while (DateTime.Now < endTime)
-        {
-            activityAction();
         }
     }
 }

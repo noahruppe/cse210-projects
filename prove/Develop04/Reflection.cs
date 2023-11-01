@@ -2,17 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-public class Reflection : Activities
+public class Reflection : Activity
 {
     private List<string> _prompts;
     private List<string> _ponder;
-    private DateTime startTime;
-    private DateTime endTime;
+    private HashSet<string> _askedQuestions;
 
-    public Reflection(string start, string end) : base(start, end)
+    public Reflection() : base("Reflection", "This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.")
     {
         _prompts = new List<string>();
         _ponder = new List<string>();
+        _askedQuestions = new HashSet<string>();
     }
 
     public void StartQuotes()
@@ -54,18 +54,35 @@ public class Reflection : Activities
         };
     }
 
-    public string GetRandomQuote()
+    public void StartReflection()
     {
-        if (_prompts.Count > 0)
+        DisplayWelcomeMessage();
+
+        Console.WriteLine("\nStarting the reflection activity...");
+
+        Random random = new Random();
+        _endTime = DateTime.Now.AddSeconds(duration);
+
+        while (DateTime.Now < _endTime)
         {
-            Random random = new Random();
-            int index = random.Next(_prompts.Count);
-            return _prompts[index];
+            string question = GetRandomQuestion();
+            
+            if (_askedQuestions.Add(question)) // this is what I did for extra credit I made it to where the question does not repeat itself*//
+            {
+                Console.WriteLine($"\n\n---{question}---");
+                
+                Console.WriteLine("\nGet ready...");
+                for (int index = 10; index > 0; index--)
+                {
+                    Console.Write(index);
+                    Thread.Sleep(1000);
+                    Console.Write("\r ");
+                }
+            }
         }
-        else
-        {
-            return "no quote";
-        }
+
+        Console.WriteLine("Reflection activity completed.");
+        DisplayCompletionMessage();
     }
 
     public string GetRandomQuestion()
@@ -75,45 +92,12 @@ public class Reflection : Activities
             Random random = new Random();
             int index = random.Next(_ponder.Count);
             string question = _ponder[index];
-            /*this is what I have done for the show creativity part I have made it to where the randomizer will not repeat the same question*/
             _ponder.RemoveAt(index);
             return question;
         }
         else
         {
-            return "no quote";
+            return "no question";
         }
     }
-
-    public void StartReflection(int activityTime)
-    {
-        startTime = DateTime.Now;
-        endTime = startTime.AddSeconds(activityTime);
-
-        Console.WriteLine("Get ready...");
-        for (int index = 5; index > 0; index--)
-        {
-            Console.Write(index);
-            Thread.Sleep(1000);
-            Console.Write("\b");
-        }
-
-        while (DateTime.Now < endTime)
-        {
-            string questions = GetRandomQuestion();
-            Console.WriteLine(questions);
-            Console.WriteLine("\nGet ready...");
-            for (int index = 10; index > 0; index--)
-            {
-                Console.Write(index);
-                Thread.Sleep(1000);
-                Console.Write("\r ");
-            }
-        }
-    }
-    public void DisplayCompletionMessage(int activityTime)
-    {
-    Console.WriteLine($"You have completed another {activityTime} seconds of reflection.");
-    }
-
 }

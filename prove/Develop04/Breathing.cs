@@ -1,48 +1,38 @@
 using System;
-using System.Reflection.Metadata;
 using System.Threading;
 
-class Breathing : Activities
+public class Breathing : Activity
 {
-    private DateTime _starttime;
-    private DateTime _endtime;
-    public Breathing(string start, string end) : base(start, end)
+    public Breathing() : base("Breathing", "This activity will help you relax by walking you through breathing in and out slowly. Clear your mind and focus on your breathing.")
     {
     }
 
-    public void DisplayBreathing(int activityTime)
+    public void DisplayBreathing()
     {
-        _starttime = DateTime.Now;
-        _endtime = _starttime.AddSeconds(activityTime);
+        DisplayWelcomeMessage();
 
-        Console.WriteLine("Get ready...");
-        for (int index = 5; index > 0; index--)
-        {
-            Console.Write(index);
-            Thread.Sleep(1000);
-            Console.Write("\b");
-        }
+        Console.Write("Starting the breathing exercise...\n");
+        Thread.Sleep(2000);
 
-        while (DateTime.Now < _endtime)
+        DateTime endTime = DateTime.Now.AddSeconds(duration);
+
+        while (DateTime.Now < endTime)
         {
+            Console.Write("\nBreathe in...");
             for (int index = 4; index > 0; index--)
             {
-                Console.Write($"Breath In...{index}  ");
+                Console.Write(index);
                 Thread.Sleep(1000);
-                Console.Write("\r ");
+                Console.Write("\b \b");
             }
-
+            Console.Write("\nBreathe out... ");
             for (int index = 4; index > 0; index--)
             {
-                Console.Write($"Breath Out...{index}  ");
+                Console.Write(index);
                 Thread.Sleep(1000);
-                Console.Write("\r ");
+                Console.Write("\b \b");
             }
         }
-    }
-    public void DisplayCompletionMessage(int activityTime)
-    {
-    Console.WriteLine($"You have completed another {activityTime} seconds of reflection.");
+        
     }
 }
-

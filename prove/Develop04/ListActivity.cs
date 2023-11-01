@@ -2,14 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-public class ListActivity : Activities
+public class ListActivity : Activity
 {
     private List<string> _prompts;
     private List<string> _userinput;
-    private DateTime startTime;
-    private DateTime endTime;
 
-    public ListActivity(string start, string end) : base(start, end)
+    public ListActivity() : base("List Activity", "This activity will help you reflect on the good things in your life by having you list as many things as you can in a certain area.")
     {
         _userinput = new List<string>();
         _prompts = new List<string>();
@@ -42,50 +40,38 @@ public class ListActivity : Activities
             string prompt = _prompts[index];
             _prompts.RemoveAt(index);
             return prompt;
-
         }
         else
         {
-            return "no quote";
+            return "no prompt";
         }
     }
-    public void StartList(int activityTime)
+
+    public void StartList()
     {
-        Console.WriteLine("Get ready...");
-        for (int index = 5; index > 0; index--)
-        {
-            Console.Write(index);
-            Thread.Sleep(1000);
-            Console.Write("\b \b");
-        }
+        DisplayWelcomeMessage();
 
-        string[] userInputs = GetUserInput(activityTime);
+        Console.WriteLine("\n\nStarting the listing activity...");
 
-        int entryCount = userInputs.Length ; 
-        Console.WriteLine($"\nthe amount of entries was {entryCount}\n");
+        Random random = new Random();
 
-    }
+        string randomizer = GetRandomPrompt();
 
+        Console.WriteLine("\nList as many responses as you can to the following prompt:");
+        Console.WriteLine($"\n---{randomizer}---\n");
 
-    public string[] GetUserInput(int activityTime)
-    {
-        List<string> userInputs = new List<string>();
+        int activityTime = duration;
+        _startTime = DateTime.Now;
+        _endTime = _startTime.AddSeconds(activityTime);
 
-        startTime = DateTime.Now;
-        endTime = startTime.AddSeconds(activityTime);
-
-
-        while (DateTime.Now < endTime)
+        while (_startTime < _endTime)
         {
             string input = Console.ReadLine();
-            userInputs.Add(input);
+            _userinput.Add(input);
+            _startTime = DateTime.Now;
         }
 
-        return userInputs.ToArray();
+        Console.WriteLine($"You entered {_userinput.Count} responses.");
+        DisplayCompletionMessage();
     }
-    public void DisplayCompletionMessage(int activityTime)
-    {
-    Console.WriteLine($"You have completed another {activityTime} seconds of reflection.");
-    }
-
 }
