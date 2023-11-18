@@ -2,7 +2,7 @@ using System;
 
 public abstract class Shapes
 {
-    private string _color {get; set;}
+    private string _color;
 
     public Shapes(string color)
     {
@@ -17,7 +17,10 @@ public abstract class Shapes
     {
         _color = color;
     }
-    public abstract double GetArea();
+    public virtual double GetArea()
+    {
+        return  -1;
+    }
 
 
 
