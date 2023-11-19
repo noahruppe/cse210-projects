@@ -1,42 +1,28 @@
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 
 
 public class SimpleGoals : Goals
 {
-    public SimpleGoals(int totalpoints) : base(totalpoints, "", "", 0)
+
+
+
+
+
+    public SimpleGoals(int Totalpoints,string goalname,string goaldescription,int amount):base(Totalpoints,goalname,goaldescription,amount)
     {
         Console.Write("What is the name of your goal? ");
-        string goalname = Console.ReadLine();
-        SetGoalName(goalname);
+        _goalName = Console.ReadLine();
+        
 
-        Console.Write("Give a short description of the goal. ");
-        string goaldescription = Console.ReadLine();
-        SetGoalDescription(goaldescription);
+        Console.Write("Give a small description of the goal. ");
+        _goalDescription = Console.ReadLine();
 
-        Console.Write("What is the amount of points you want for doing this goal? ");
-        string goalpoints = Console.ReadLine();
-        int result = int.Parse(goalpoints);
-        SetGoalPoints(result);
+        Console.Write("what is the worth of doing this goal? ");
+         string result = Console.ReadLine();
+         _amount = int.Parse(result);
+
+         base.AddGoalToList(this);
+        
     }
-
-    public override void RecordEvent()
-    {
-        if (!isComplete)
-        {
-        _totalpoints += GetGoalPoints();
-        Console.WriteLine($"Event recorded for {GetGoalName()}! You earned {_goalpoints} points.");
-        MarkComplete();  // Mark the goal as complete
-        }
-    }
-
-    public override string DisplayInfo()
-{
-    string completionStatus = isComplete ? "[X]" : "[ ]";
-    string pointsInfo = $" ({GetTotalPoints()})";
-
-    return $"{completionStatus} Goal: {GetGoalName()} - ({GetGoalDescription()}){pointsInfo}";
 }
-}
-
-
