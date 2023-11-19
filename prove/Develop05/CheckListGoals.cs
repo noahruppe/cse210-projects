@@ -1,14 +1,10 @@
 using System;
 
-
-
-
 public class ChecklistGoals : Goals
 {
-     protected int _amountOFTimes;
+    protected int _amountOFTimes;
     protected int _bonusPoints;
-
-    private int _completionCounter = 0;
+    private int _completedTimes = 0;
 
     public ChecklistGoals(int Totalpoints, string goalname, string goaldescription, int amount, int amountOFTimes, int bonusPoints)
         : base(Totalpoints, goalname, goaldescription, amount)
@@ -33,11 +29,32 @@ public class ChecklistGoals : Goals
 
         base.AddGoalToList(this);
     }
+
+    public int AmountOFTimes
+    {
+        get { return _amountOFTimes; }
+        set { _amountOFTimes = value; }
+    }
+
+    public int BonusPoints
+    {
+        get { return _bonusPoints; }
+        set { _bonusPoints = value; }
+    }
+
+    public int CompletedTimes
+    {
+        get { return _completedTimes; }
+        set { _completedTimes = value; }
+    }
+
     public override void RecordEvent()
     {
         if (!isComplete)
         {
             AccumulatePoints(_amount);
+
+            RecordCompletion();
 
             if (ChecklistGoalCompleted())
             {
@@ -46,19 +63,20 @@ public class ChecklistGoals : Goals
         }
         MarkComplete();
     }
-    private bool ChecklistGoalCompleted()
-    {
-        
-        _completionCounter++;
 
-        
-        return _completionCounter >= _amountOFTimes;
+    private void RecordCompletion()
+    {
+        _completedTimes++;
     }
 
-}
+    private bool ChecklistGoalCompleted()
+    {
+        return _completedTimes >= _amountOFTimes;
+    }
 
-    
-    
-    
-    
-   
+    public override void GetStatus()
+    {
+        string status = ChecklistGoalCompleted() ? "[X]" : "[ ]";
+        Console.WriteLine($"{status} Goal: {_goalName} - ({_goalDescription}) --- (Currently completed {_completedTimes}/{_amountOFTimes})");
+    }
+}

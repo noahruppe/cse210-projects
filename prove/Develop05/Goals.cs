@@ -120,17 +120,25 @@ public class Goals
     public void SaveOption(string fileName)
     {
         using (StreamWriter writer = new StreamWriter(fileName))
+        {
+            foreach (var goal in GoalsList)
             {
-                foreach (var goal in GoalsList)
+                writer.Write($"{goal.GetTotalPoints()}|{goal.GetGoalName()}|{goal.GetGoalDescription()}|{goal.GetAmount()}|{goal.GetIsComplete()}");
+
+                if (goal is ChecklistGoals checklistGoal)
                 {
-                    writer.WriteLine($"{goal.GetTotalPoints()}|{goal.GetGoalName()}|{goal.GetGoalDescription()}|{goal.GetAmount()}|{goal.GetIsComplete()}");
+                    writer.Write($"|{checklistGoal.AmountOFTimes}|{checklistGoal.BonusPoints}|{checklistGoal.CompletedTimes}");
                 }
-                Console.WriteLine($"You have {_yourTotalPoints} ");
+
+                writer.WriteLine();
             }
+
+            Console.WriteLine($"You have {_yourTotalPoints} ");
+        }
     }
     public void LoadOption(string fileName)
     {
-        GoalsList.Clear(); // Clear existing goals before loading new ones
+        GoalsList.Clear(); 
 
         using (StreamReader reader = new StreamReader(fileName))
         {
@@ -155,10 +163,6 @@ public class Goals
                 }
             }
     }
-    
-    
-
-
-
-
 }
+
+
