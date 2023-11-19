@@ -16,6 +16,9 @@ public class Goals
 
     protected bool isComplete;
 
+    protected int _accumulatedPoints;
+
+
 
     public List<Goals> GoalsList;
 
@@ -62,11 +65,20 @@ public class Goals
     {
         _amount = amount;
     }
+    public int GetAccumulatedPoints()
+    {
+        return _accumulatedPoints;
+    }
+
+    public void AccumulatePoints(int amount)
+    {
+        _accumulatedPoints += amount;
+    }
     public bool GetIsComplete()
     {
         return isComplete;
     }
-    public void MarkComplete()
+    public virtual void MarkComplete()
     {
         isComplete = true;
     }
@@ -74,14 +86,15 @@ public class Goals
     {
         GoalsList.Add(goal);
     }
-    public void RecordEvent()
+    public virtual void RecordEvent()
     {
         if (!isComplete)
         {
-            _yourTotalPoints += _amount;
-            MarkComplete();
+            AccumulatePoints(_amount);
         }
-    }
+        MarkComplete();
+        }
+    
      public void RecordEventAtIndex(int index)
     {
         if (index >= 0 && index < GoalsList.Count)
@@ -89,9 +102,9 @@ public class Goals
             GoalsList[index].RecordEvent();
         }
     }
-    public void GetStatus()
+    public virtual  void GetStatus()
     {
-        string status = isComplete ? "[X]" : "[ ]";
+        string status = isComplete && !(this is EternalGoals) ? "[X]" : "[ ]";
         Console.WriteLine($"{status} Goal: {_goalName} - {_goalDescription}");
     }
     public void DisplayGoalsList()
@@ -100,6 +113,9 @@ public class Goals
         {
             goal.GetStatus();
         }
+
+        int totalPoints = GoalsList.Where(goal => goal.GetIsComplete()).Sum(goal => goal.GetAmount());
+        Console.WriteLine($"You have {totalPoints} ");
     }
     public void SaveOption(string fileName)
     {
@@ -109,6 +125,7 @@ public class Goals
                 {
                     writer.WriteLine($"{goal.GetTotalPoints()}|{goal.GetGoalName()}|{goal.GetGoalDescription()}|{goal.GetAmount()}|{goal.GetIsComplete()}");
                 }
+                Console.WriteLine($"You have {_yourTotalPoints} ");
             }
     }
     public void LoadOption(string fileName)

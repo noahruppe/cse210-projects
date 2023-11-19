@@ -37,11 +37,13 @@ class Program
                 }
                 else if  (choice2 == "2")
                 {
-
+                    EternalGoals eternalGoals = new EternalGoals(0,"","",0);
+                    goals.AddGoalToList(eternalGoals);
                 }
                 else if (choice2 == "3")
                 {
-
+                    ChecklistGoals checklistGoals = new ChecklistGoals(0,"","",0,0,0);
+                    goals.AddGoalToList(checklistGoals);
                 }
 
             }

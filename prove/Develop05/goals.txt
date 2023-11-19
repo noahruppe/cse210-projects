@@ -1,1 +1,1 @@
-0|talk|give a talk|10|False
+0|read|read all day|10|False
