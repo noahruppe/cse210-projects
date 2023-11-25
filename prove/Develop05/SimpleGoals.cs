@@ -1,29 +1,30 @@
 using System;
 using System.ComponentModel;
+using System.Xml.Linq;
 
 
-public class SimpleGoals : Goals
+public class SimpleGoal : Goal
 {
 
 
 
 
 
-    public SimpleGoals(int Totalpoints,string goalname,string goaldescription,int amount):base(Totalpoints,goalname,goaldescription,amount)
+    public SimpleGoal(string goalname,string goaldescription,int amount):base(goalname,goaldescription,amount)
     {
-        Console.Write("What is the name of your goal? ");
-        _goalName = Console.ReadLine();
-        
-
-        Console.Write("Give a small description of the goal. ");
-        _goalDescription = Console.ReadLine();
-
-        Console.Write("what is the worth of doing this goal? ");
-         string result = Console.ReadLine();
-         _amount = int.Parse(result);
-
-         base.AddGoalToList(this);
         
     }
+    public override int RecordEvent()
+    {
+        int points = base.RecordEvent();
+        isComplete = true; 
+        return points;
+    }
+    public override string TOSaveString()
+    {
+        string saved = base.TOSaveString();
+        return $"SimpleGoal: {saved}";
+    }
+
 }
 

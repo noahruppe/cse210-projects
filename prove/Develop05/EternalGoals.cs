@@ -1,24 +1,23 @@
 using System;
 
-public class EternalGoals : Goals
+public class EternalGoal : Goal
 {
-    public EternalGoals(int Totalpoints, string goalname, string goaldescription, int amount)
-        : base(Totalpoints, goalname, goaldescription, amount)
+    public EternalGoal(string goalname, string goaldescription, int amount)
+        : base(goalname, goaldescription, amount)
     {
-        Console.Write("What is the name of your goal? ");
-        _goalName = Console.ReadLine();
-
-        Console.Write("Give a small description of the goal. ");
-        _goalDescription = Console.ReadLine();
-
-        Console.Write("what is the worth of doing this goal? ");
-        string result = Console.ReadLine();
-        _amount = int.Parse(result);
-
-        base.AddGoalToList(this);
+       
+    }
+    public override int RecordEvent()
+    {
+        int points = base.RecordEvent();
+        return points;
+    }
+    public override string TOSaveString()
+    {
+        string saved = base.TOSaveString();
+        return $"Eternal Goal: {saved}";
     }
 
-    
 }
 
 
