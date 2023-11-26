@@ -20,11 +20,7 @@ public class SimpleGoal : Goal
         isComplete = true; 
         return points;
     }
-    public override string TOSaveString()
-    {
-        string saved = base.TOSaveString();
-        return $"SimpleGoal: {saved}";
-    }
+    
 
 }
 

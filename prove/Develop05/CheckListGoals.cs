@@ -36,12 +36,7 @@ public class ChecklistGoal : Goal
         string progress = $"(currently completed ({_completedTimes}/{_amountOFTimes}))";
         return $"{status} Goal: {_goalName} - ({_goalDescription}) {progress}";
     }
-    public override string TOSaveString()
-    {
-        string baseString = base.TOSaveString();
-         string progress = $"(currently completed ({_completedTimes}/{_amountOFTimes}))";
-        return $"CheckListGoal: {baseString}|{_amountOFTimes}|{_bonusPoints}|{progress}";
-    }
+    
 
 
     

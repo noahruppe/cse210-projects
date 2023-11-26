@@ -44,15 +44,13 @@ public class Goal
     }
     public virtual string TOSaveString()
     {
-        string status = isComplete ? "1" : "0"; 
-        return $"{_goalName}|{_goalDescription}|{_amount}|{status}";
+        string status = isComplete ? "1" : "0";
+        return $"{GetType().Name}|{_goalName}|{_goalDescription}|{_amount}|{status}";
     }
+    
 
-    public void LoadOption(string filename)
-    {
-        
-    }
-
+    
 }
+    
 
 

@@ -61,7 +61,7 @@ class Program
                     Console.Write("If you complete the amount of times specified how many points do you want? ");
                     string result2 = Console.ReadLine();
                     int _bonusPoints = int.Parse(result2);
-                    
+
                     ChecklistGoal checklistGoal = new ChecklistGoal(_goalName, _goalDescription, _amount, _amountOFTimes, _bonusPoints);
                     goal.Add(checklistGoal);
                 }
@@ -77,6 +77,7 @@ class Program
             }
             else if (choice == "3")
             {
+                // I added this for the extra credit that the user can save his goals to any file he wants so that he can keep his goals organized for each month if he wants
                 Console.Write("Enter the filename to save the goals (or press Enter for default name): ");
                 string filename = Console.ReadLine();
                 if (string.IsNullOrEmpty(filename))
@@ -94,7 +95,17 @@ class Program
             }
             else if (choice == "4")
             {
-                
+                // Console.Write("Enter the filename to load the goals: ");
+                // string filename = Console.ReadLine();
+                // string[] parts = filename.Split();
+                // string goalnameis = parts[0];
+                // string descriptionis = parts[1];
+
+
+                // if (System.IO.File.Exists(filename))
+                // {
+                //     Console.WriteLine($"{goalnameis} {descriptionis}");
+                // }
             }
             else if (choice == "5")
             {
@@ -123,4 +134,6 @@ class Program
         }
     }
 }
+
+
 

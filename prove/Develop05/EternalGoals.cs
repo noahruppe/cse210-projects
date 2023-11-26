@@ -12,11 +12,7 @@ public class EternalGoal : Goal
         int points = base.RecordEvent();
         return points;
     }
-    public override string TOSaveString()
-    {
-        string saved = base.TOSaveString();
-        return $"Eternal Goal: {saved}";
-    }
+    
 
 }
 
