@@ -1,4 +1,3 @@
-// Comment.cs
 using System;
 
 public class Comment {
