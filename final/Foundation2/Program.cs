@@ -21,11 +21,11 @@ class Program
         Order order2 = new Order(customer2);
         order2.AddProduct(product3);
 
-        Console.WriteLine($"Order 1 Total Cost: ${order1.GetTotalCost()}");
+        Console.WriteLine($"Order 1 Total Cost: ${order1.GetTotalCost():F2}");
         Console.WriteLine(order1.GetPackingLabel());
         Console.WriteLine(order1.GetShippingLabel());
 
-        Console.WriteLine($"Order 2 Total Cost: ${order2.GetTotalCost()}");
+        Console.WriteLine($"\n\nOrder 2 Total Cost: ${order2.GetTotalCost()}");
         Console.WriteLine(order2.GetPackingLabel());
         Console.WriteLine(order2.GetShippingLabel());
     }

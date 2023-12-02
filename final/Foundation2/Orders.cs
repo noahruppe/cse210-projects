@@ -25,7 +25,7 @@ public class Order
             total += product.GetTotalPrice();
         }
         total += (customer.IsUSCustomer() ? 5.0 : 35.0);
-        return total;
+        return double.Parse(total.ToString("F2"));
     }
 
     public string GetPackingLabel()
