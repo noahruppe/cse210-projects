@@ -10,10 +10,10 @@ public class Address
         Country = country;
     }
 
-    public string Street { get; }
-    public string City { get; }
-    public string State { get; }
-    public string Country { get; }
+    private string Street { get; }
+    private string City { get; }
+    private string State { get; }
+    private string Country { get; }
 
     public bool IsUSAddress()
     {

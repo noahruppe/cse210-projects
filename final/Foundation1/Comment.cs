@@ -1,11 +1,16 @@
-using System;
+public class Comment
+{
+    private string Commenter { get; }
+    private string Text { get; }
 
-public class Comment {
-    public Comment(string commenter, string text) {
+    public Comment(string commenter, string text)
+    {
         Commenter = commenter;
         Text = text;
     }
 
-    public string Commenter { get; }
-    public string Text { get; }
+    public string GetCommentInfo()
+    {
+        return $"{Commenter}: {Text}";
+    }
 }

@@ -10,10 +10,10 @@ public class Product
         Quantity = quantity;
     }
 
-    protected string Name { get; }
-    protected int ProductId { get; }
-    protected double Price { get; }
-    protected int Quantity { get; }
+    private string Name { get; }
+    private int ProductId { get; }
+    private double Price { get; }
+    private int Quantity { get; }
 
     public double GetTotalPrice()
     {

@@ -28,9 +28,9 @@ class Program
         video4.AddComment("Smelyywathr123", "Keep it up!");
         videos.Add(video4);
 
-        foreach (var video in videos) 
+        foreach (var video in videos)
         {
-            video.DisplayInfo();
+            Console.WriteLine(video.GetVideoInfo());
             Console.WriteLine();
         }
     }

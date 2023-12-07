@@ -8,8 +8,8 @@ public class Customer
         Address = address;
     }
 
-    public string Name { get; }
-    public Address Address { get; }
+    private string Name { get; }
+    private Address Address { get; }
 
     public bool IsUSCustomer()
     {
